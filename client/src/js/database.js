@@ -18,7 +18,7 @@ export const putDb = async (content) => {
   const jateDb = await openDB('jate, 1');
   const tx = jateDb.transaction('jate', 'readwrite');
   const store = tx.objectStore('jate');
-  const request = store.add({ id: 1, value: content});
+  const request = store.put({ id: 1, value: content });
   const result = await request;
   console.log('Data saved onto the database', result);
 };
@@ -28,10 +28,10 @@ export const getDb = async () => {
   console.log('GET from the database');
   const jateDb = await openDB('jate, 1');
   const tx = jateDb.transaction('jate', 'readonly');
-  const objStore = tx.objectStore('jate');
-  const req = store.get(1);
-  const res = await req;
-  console.log('data saved to the jateDB', res);
+  const store = tx.objectStore('jate');
+  const request = store.getAll();
+  const result = await request;
+  console.log('data saved to the jateDB', result.value);
   // if result cannot be accessed, it returns undefined instead of throwing an error.
   return result?.value;
 };
